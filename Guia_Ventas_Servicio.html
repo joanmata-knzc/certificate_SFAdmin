@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas, Servicio y Productividad — Salesforce Admin Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+
+    <div class="back-bar">
+        <div class="container">
+            <a href="INDEX_START_HERE.html" class="back-link">← Volver al Índice</a>
+            <span class="page-label">Bloque 5 · Sales, Service &amp; Productivity · 30% del examen</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <span class="brand-tag">Sales · Service · Productivity · AppExchange</span>
+            <h1>Ventas, Servicio y Productividad</h1>
+            <p>El ciclo de vida completo del cliente: desde el primer contacto hasta el soporte post-venta.</p>
+        </div>
+
+        <!-- 1. SALES CLOUD -->
+        <section class="content-section">
+            <h2 class="section-header">1. Sales Cloud — El Ciclo de Ventas</h2>
+
+            <div class="topic-box" style="border-top: 4px solid var(--sf-blue);">
+                <h3>🎯 Lead (Candidato) → La Conversión es la Clave</h3>
+                <p>Un Lead es una persona o empresa interesada pero sin calificar. El proceso termina con la
+                    <strong>Lead Conversion</strong>:</p>
+                <ul style="margin-top:10px;">
+                    <li>Al convertir un Lead se generan automáticamente: <strong>1 Account</strong> (empresa) +
+                        <strong>1 Contact</strong> (persona) + <strong>1 Opportunity</strong> (opcional).</li>
+                    <li>Si la empresa ya existe, puedes asociar el contacto a una cuenta existente.</li>
+                    <li><strong>Lead Source:</strong> Campo estándar para rastrear el origen (Web, Email Campaign,
+                        Referral...).</li>
+                    <li><strong>Lead Status:</strong> Pipeline del lead (New, Working, Qualified, Unqualified...).</li>
+                </ul>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>💰 Opportunity (Oportunidad)</h3>
+                    <ul>
+                        <li>Representa un negocio en curso con un potencial monetario.</li>
+                        <li><strong>Stage:</strong> Etapa de la venta (Prospecting, Qualification, Proposal, Closed Won,
+                            Closed Lost...).</li>
+                        <li><strong>Probability:</strong> Porcentaje de éxito. Salesforce lo asigna automáticamente
+                            según el Stage (configurable).</li>
+                        <li><strong>Close Date:</strong> Fecha estimada de cierre (obligatorio).</li>
+                        <li><strong>Amount:</strong> Valor económico estimado de la venta.</li>
+                        <li><strong>Path:</strong> Barra visual de progreso encima del registro para cambiar de Stage.
+                        </li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>📦 Products & Pricebooks</h3>
+                    <ul>
+                        <li><strong>Product:</strong> Un artículo o servicio que vendes.</li>
+                        <li><strong>Pricebook:</strong> Catálogo de precios. El Standard Pricebook es el predeterminado.
+                        </li>
+                        <li><strong>Opportunity Line Items:</strong> Los productos que añades a una oportunidad
+                            concreta.</li>
+                        <li>Puedes tener diferentes Pricebooks para distintos mercados (ej: precio para España vs precio
+                            para LATAM).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📢 Campaigns (Campañas de Marketing)</h3>
+                    <ul>
+                        <li>Rastrean iniciativas de marketing (emails, eventos, anuncios).</li>
+                        <li>Los Leads y Contactos se añaden como <strong>Campaign Members</strong>.</li>
+                        <li><strong>Campaign Influence:</strong> Muestra qué campañas contribuyeron a cerrar una
+                            oportunidad.</li>
+                        <li>Permiten calcular el ROI de las acciones de marketing.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>📈 Forecasting (Previsiones)</h3>
+                    <ul>
+                        <li>Permite a los equipos de ventas estimar los ingresos futuros.</li>
+                        <li>Se basa en las Oportunidades y sus etapas/probabilidades.</li>
+                        <li>Los managers pueden ajustar manualmente las previsiones de sus equipos.</li>
+                        <li>Requiere tener la jerarquía de Roles configurada.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> La pregunta de la conversión del Lead es casi obligatoria. Recuerda:
+                siempre se crean Account + Contact. La Opportunity es OPCIONAL. Si el Lead ya tiene una cuenta
+                existente, puedes asociarlo a ella sin crear una nueva.
+            </div>
+        </section>
+
+        <!-- 2. SERVICE CLOUD -->
+        <section class="content-section">
+            <h2 class="section-header">2. Service Cloud — Soporte al Cliente</h2>
+
+            <div class="topic-box" style="border-top: 4px solid var(--sf-green);">
+                <h3>🎫 Case (Caso) — El núcleo del Servicio</h3>
+                <p>Un Case es una solicitud, queja o pregunta de un cliente. Su ciclo de vida se gestiona mediante
+                    <strong>Status</strong> (Nuevo, En Progreso, Cerrado...).</p>
+                <ul style="margin-top:10px;">
+                    <li><strong>Case Origin:</strong> Cómo llegó el caso (Email, Web, Phone, Chat...).</li>
+                    <li><strong>Priority:</strong> Urgencia del caso (High, Medium, Low).</li>
+                    <li><strong>Email-to-Case / Web-to-Case:</strong> Crean casos automáticamente desde emails o
+                        formularios web.</li>
+                </ul>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📋 Queues (Colas de Trabajo)</h3>
+                    <ul>
+                        <li>Grupos de usuarios que comparten una lista de registros pendientes (Cases, Leads, etc.).
+                        </li>
+                        <li>Cualquier miembro de la cola puede "coger" un registro y asignárselo a sí mismo.</li>
+                        <li>Útil para equipos de soporte donde cualquiera puede atender el siguiente caso.</li>
+                        <li><strong>Dónde:</strong> Setup → Queues.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>📚 Knowledge (Base de Conocimiento)</h3>
+                    <ul>
+                        <li>Biblioteca de artículos informativos (FAQs, guías, procedimientos).</li>
+                        <li>Los agentes los usan para resolver casos más rápido.</li>
+                        <li>Se pueden publicar en portales para que los clientes se auto-atiendan.</li>
+                        <li>Los artículos tienen <strong>versiones</strong> y pueden ser revisados antes de publicarse.
+                        </li>
+                        <li>Se clasifican por <strong>Data Categories</strong> (categorías de datos).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>⚡ Entitlements y Service Contracts</h3>
+                    <ul>
+                        <li><strong>Entitlement:</strong> Define el nivel de soporte que tiene un cliente (ej: soporte
+                            24/7 o solo en horario comercial).</li>
+                        <li><strong>Milestone:</strong> Un punto de tiempo dentro del entitlement (ej: "Primera
+                            respuesta en menos de 2 horas").</li>
+                        <li>Permiten medir si el equipo está cumpliendo los SLAs (acuerdos de nivel de servicio).</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🌐 Communities / Experience Cloud</h3>
+                    <ul>
+                        <li>Portales para clientes externos o partners.</li>
+                        <li>Los clientes pueden abrir sus propios casos, ver el estado y consultar artículos de
+                            Knowledge.</li>
+                        <li>Requieren licencias especiales (Experience Cloud licenses).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PRODUCTIVIDAD -->
+        <section class="content-section">
+            <h2 class="section-header">3. Productividad y Colaboración</h2>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📅 Activities (Actividades)</h3>
+                    <ul>
+                        <li><strong>Tasks (Tareas):</strong> Elementos de "To-Do" sin duración fija. Pueden tener fecha
+                            límite y prioridad.</li>
+                        <li><strong>Events (Eventos):</strong> Tienen fecha, hora de inicio y de fin. Aparecen en el
+                            calendario. Representan reuniones.</li>
+                        <li><strong>Email Logging:</strong> Los emails enviados desde Salesforce quedan registrados en
+                            el registro del contacto.</li>
+                        <li>El panel de <strong>Activity Timeline</strong> en los registros muestra las actividades
+                            pasadas y futuras.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>💬 Chatter</h3>
+                    <ul>
+                        <li>La red social corporativa interna de Salesforce.</li>
+                        <li><strong>@menciones:</strong> Notifica a un usuario directamente.</li>
+                        <li><strong>Seguir registros:</strong> Recibes notificaciones cuando cambia un registro que te
+                            importa.</li>
+                        <li><strong>Grupos:</strong> Espacios de colaboración por proyecto, equipo o tema.</li>
+                        <li><strong>Chatter Free:</strong> Licencia que permite acceso solo a Chatter, sin CRM.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. APPEXCHANGE -->
+        <section class="content-section">
+            <h2 class="section-header">4. AppExchange — El Marketplace de Salesforce</h2>
+
+            <div class="topic-box" style="border-left: 5px solid var(--sf-orange);">
+                <h3>🛒 ¿Qué es?</h3>
+                <p>El "App Store" oficial de Salesforce. Contiene apps, componentes y flujos creados por Salesforce y
+                    por partners/terceros.</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📦 Managed Packages</h3>
+                    <ul>
+                        <li>El código está protegido (no puedes ver ni modificarlo).</li>
+                        <li>El proveedor puede publicar actualizaciones que tú instalas.</li>
+                        <li>Se instalan con un namespace propio para evitar conflictos.</li>
+                        <li>Ejemplos: Docusign, Conga, Copado.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>📂 Unmanaged Packages</h3>
+                    <ul>
+                        <li>Puedes ver y modificar el código libremente.</li>
+                        <li>No reciben actualizaciones automáticas del creador.</li>
+                        <li>Útiles para plantillas y proyectos de muestra.</li>
+                        <li>Una vez instalados, los componentes "son tuyos".</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Antes de instalar cualquier app de AppExchange en producción, siempre
+                se debe probar en un <strong>Sandbox</strong>. Esta es la respuesta correcta siempre que pregunten sobre
+                la gestión de cambios.
+            </div>
+        </section>
+
+        <footer>
+            <p>Konozca & Joan Mata &copy; 2026 | Salesforce Admin Reference Guide</p>
+        </footer>
+    </div>
+</body>
+
+</html>

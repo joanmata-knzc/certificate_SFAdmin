@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos y Analítica — Salesforce Admin Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+
+    <div class="back-bar">
+        <div class="container">
+            <a href="INDEX_START_HERE.html" class="back-link">← Volver al Índice</a>
+            <span class="page-label">Bloque 6 · Data &amp; Analytics Management · 17% del examen</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <span class="brand-tag">Data &amp; Analytics Management</span>
+            <h1>Gestión de Datos y Analítica</h1>
+            <p>Importar, limpiar y visualizar datos. El 17% más práctico del examen.</p>
+        </div>
+
+        <!-- 1. IMPORTACIÓN -->
+        <section class="content-section">
+            <h2 class="section-header">1. Herramientas de Importación de Datos</h2>
+
+            <table class="compare-table" style="margin-bottom:20px;">
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Import Wizard</th>
+                        <th>Data Loader</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Límite de registros</td>
+                        <td>Hasta 50.000</td>
+                        <td>Hasta 5.000.000</td>
+                    </tr>
+                    <tr>
+                        <td>Instalación</td>
+                        <td>Navegador web (sin instalación)</td>
+                        <td>App de escritorio (Windows/Mac)</td>
+                    </tr>
+                    <tr>
+                        <td>Objetos disponibles</td>
+                        <td>Solo objetos estándar clave + custom</td>
+                        <td>Todos los objetos</td>
+                    </tr>
+                    <tr>
+                        <td>Detección de duplicados</td>
+                        <td>Sí, automática</td>
+                        <td>No automática (manual)</td>
+                    </tr>
+                    <tr>
+                        <td>Operaciones</td>
+                        <td>Insert, Update, Upsert</td>
+                        <td>Insert, Update, Upsert, Delete, Hard Delete, Export</td>
+                    </tr>
+                    <tr>
+                        <td>Programación automática</td>
+                        <td>No</td>
+                        <td>Sí (vía CLI)</td>
+                    </tr>
+                    <tr>
+                        <td>Perfil mínimo requerido</td>
+                        <td>Admin o con permiso de importación</td>
+                        <td>Depende de los permisos del objeto</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🔄 Operaciones de Datos</h3>
+                    <ul>
+                        <li><strong>Insert:</strong> Crea registros nuevos.</li>
+                        <li><strong>Update:</strong> Actualiza registros existentes (requiere ID de Salesforce).</li>
+                        <li><strong>Upsert:</strong> Inserta si no existe, actualiza si existe (usa External ID).</li>
+                        <li><strong>Delete:</strong> Borra registros (van a la Papelera, recuperables 15 días).</li>
+                        <li><strong>Hard Delete:</strong> Borra permanentemente, sin papelera (solo Data Loader).</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🧹 Limpieza y Calidad de Datos</h3>
+                    <ul>
+                        <li><strong>Duplicate Rules:</strong> Alertan o bloquean cuando se intenta crear un registro
+                            duplicado.</li>
+                        <li><strong>Matching Rules:</strong> La lógica que determina cuándo dos registros son "iguales"
+                            (ej: mismo email).</li>
+                        <li><strong>Data.com / Third-party tools:</strong> Para enriquecer datos de contactos y cuentas.
+                        </li>
+                        <li>La limpieza proactiva de datos es siempre más barata que corregirla después.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Si preguntan cuándo usar Import Wizard vs Data Loader, la clave está
+                en el <strong>volumen</strong> (más de 50k → Data Loader) y en si necesitas <strong>Hard Delete</strong>
+                o <strong>Export</strong> (siempre Data Loader).
+            </div>
+        </section>
+
+        <!-- 2. REPORTES -->
+        <section class="content-section">
+            <h2 class="section-header">2. Reports (Informes)</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Pestaña "Reports" en la barra de navegación superior.
+            </p>
+
+            <h3 style="margin-bottom:14px; color:var(--sf-dark);">Tipos de Reportes</h3>
+            <table class="compare-table" style="margin-bottom:24px;">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>¿Permite gráficos?</th>
+                        <th>Caso de uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tabular</td>
+                        <td>Lista simple de registros sin agrupaciones. Como Excel.</td>
+                        <td>No</td>
+                        <td>Lista de todos los clientes, exportar datos.</td>
+                    </tr>
+                    <tr>
+                        <td>Summary</td>
+                        <td>Agrupado por filas. Permite subtotales.</td>
+                        <td>Sí</td>
+                        <td>Ventas por comercial. Casos por agente.</td>
+                    </tr>
+                    <tr>
+                        <td>Matrix</td>
+                        <td>Agrupado por filas Y columnas. Permite totales cruzados.</td>
+                        <td>Sí</td>
+                        <td>Ventas por comercial y por mes (tabla cruzada).</td>
+                    </tr>
+                    <tr>
+                        <td>Joined</td>
+                        <td>Combina varios bloques de reportes diferentes en una sola vista.</td>
+                        <td>Sí (limitado)</td>
+                        <td>Comparar métricas de diferentes objetos en un solo reporte.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📋 Report Types</h3>
+                    <p>Define qué objetos y campos están disponibles para construir el reporte.</p>
+                    <ul style="margin-top:10px;">
+                        <li>Salesforce tiene Report Types estándar (ej: "Accounts with Contacts").</li>
+                        <li>Puedes crear Custom Report Types para combinaciones que no existen.</li>
+                        <li><strong>Clave:</strong> Si quieres un reporte de Cuentas que tengan Contactos, necesitas el
+                            report type "Accounts with Contacts". Si quieres Cuentas que pueden o no tener Contactos,
+                            necesitas otro report type diferente.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⚙️ Funcionalidades Clave</h3>
+                    <ul>
+                        <li><strong>Filters:</strong> Filtra los registros que aparecen (ej: solo oportunidades cerradas
+                            este año).</li>
+                        <li><strong>Bucket Fields:</strong> Agrupa valores en categorías sin crear un campo nuevo (ej:
+                            "Pequeño/Mediano/Grande" según el Amount).</li>
+                        <li><strong>Cross Filters:</strong> Filtra por la existencia o ausencia de registros
+                            relacionados (ej: Cuentas SIN Contactos).</li>
+                        <li><strong>Row-Level Formulas:</strong> Fórmulas que se calculan para cada fila del reporte.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. DASHBOARDS -->
+        <section class="content-section">
+            <h2 class="section-header">3. Dashboards (Paneles)</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Pestaña "Dashboards" en la barra de navegación superior.
+            </p>
+
+            <div class="topic-box">
+                <h3>📊 ¿Qué son?</h3>
+                <p>Visualización gráfica de múltiples reportes en una sola pantalla. Cada componente del Dashboard se
+                    basa en un Report.</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🎯 Componentes (Gráficos)</h3>
+                    <ul>
+                        <li><strong>Bar / Column Chart:</strong> Comparar valores entre categorías.</li>
+                        <li><strong>Donut / Pie Chart:</strong> Proporción de partes sobre el total.</li>
+                        <li><strong>Funnel:</strong> Pipeline de ventas o servicio.</li>
+                        <li><strong>Metric / Gauge:</strong> Un número clave (ej: total de ventas del mes).</li>
+                        <li><strong>Table:</strong> Datos tabulares dentro del dashboard.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>👁️ Running User — La Clave de Seguridad</h3>
+                    <ul>
+                        <li>El Dashboard muestra los datos <strong>según los permisos del "Running User"</strong>, no
+                            del usuario que lo está viendo.</li>
+                        <li>Si el Running User es el Admin, todos verán todos los datos.</li>
+                        <li><strong>Dynamic Dashboard:</strong> Cada usuario ve sus propios datos. El "Running User" es
+                            "el usuario que está viendo el dashboard". Limitado a 5 dashboards dinámicos por org en
+                            ediciones inferiores.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Solo los reportes de tipo <strong>Summary</strong> y
+                <strong>Matrix</strong> pueden ser fuente de un componente de Dashboard (Tabular y Joined no pueden,
+                salvo que uses un Table component especial). Si preguntan sobre un Dashboard donde cada manager ve solo
+                sus datos, la respuesta es <strong>Dynamic Dashboard</strong>.
+            </div>
+        </section>
+
+        <!-- 4. LIST VIEWS -->
+        <section class="content-section">
+            <h2 class="section-header">4. List Views (Vistas de Lista)</h2>
+
+            <div class="topic-box">
+                <h3>📋 ¿Qué son?</h3>
+                <p>Filtros guardados sobre un objeto que muestran una lista de registros que cumplen ciertos criterios.
+                    Más simples que los reportes pero más directas.</p>
+                <ul style="margin-top:10px;">
+                    <li><strong>Ejemplo:</strong> "Mis Leads de esta semana", "Casos sin respuesta", "Oportunidades de
+                        Q4".</li>
+                    <li>Se pueden compartir con todos los usuarios, con grupos específicos, o ser privadas.</li>
+                    <li>Permiten edición inline (cambiar campos directamente desde la lista).</li>
+                    <li>Pueden visualizarse como tabla o como <strong>Kanban</strong> (tarjetas agrupadas por Stage).
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>Konozca & Joan Mata &copy; 2026 | Salesforce Admin Reference Guide</p>
+        </footer>
+    </div>
+</body>
+
+</html>

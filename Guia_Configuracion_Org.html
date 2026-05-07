@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de la Org — Salesforce Admin Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+
+    <div class="back-bar">
+        <div class="container">
+            <a href="INDEX_START_HERE.html" class="back-link">← Volver al Índice</a>
+            <span class="page-label">Bloque 1 · Configuración &amp; Setup · 15% del examen</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <span class="brand-tag">Configuration and Setup</span>
+            <h1>Configuración de la Organización y Usuarios</h1>
+            <p>Todo lo que configuras antes de que los usuarios trabajen. Es el "backstage" de Salesforce.</p>
+        </div>
+
+        <!-- 1. COMPANY SETTINGS -->
+        <section class="content-section">
+            <h2 class="section-header">1. Company Information (Información de la Empresa)</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Setup → Company Settings → Company Information<br>
+                Es la ficha técnica de tu instancia. Contiene datos clave que Salesforce Support te pedirá.
+            </p>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🔑 Datos Críticos</h3>
+                    <ul>
+                        <li><strong>Organization ID:</strong> El identificador único de tu instancia (como el NIF de la
+                            empresa en Salesforce).</li>
+                        <li><strong>Licenses Used/Total:</strong> Cuántas licencias tienes contratadas y cuántas están
+                            libres.</li>
+                        <li><strong>Locale & Language:</strong> Define el formato de fecha, hora, moneda y el idioma de
+                            la UI.</li>
+                        <li><strong>Default Time Zone:</strong> Zona horaria por defecto para nuevos usuarios.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>📅 Fiscal Year (Año Fiscal)</h3>
+                    <ul>
+                        <li><strong>Standard:</strong> Sigue el calendario natural (enero–diciembre). El más común.</li>
+                        <li><strong>Custom Fiscal Year:</strong> Para empresas con año fiscal no estándar (ej:
+                            abril–marzo). <strong>⚠️ Una vez activado, no se puede desactivar.</strong></li>
+                        <li>Afecta a los <em>forecasts</em> y a cómo Salesforce agrupa los datos en reportes temporales.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. USUARIOS -->
+        <section class="content-section">
+            <h2 class="section-header">2. Gestión de Usuarios</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;"><strong>Dónde:</strong> Setup → Users → Users</p>
+
+            <div class="topic-box">
+                <h3>👤 Creación de Usuarios</h3>
+                <p>Cada usuario necesita: nombre, email (único), <strong>username</strong> (único global en toda la
+                    plataforma, no solo en tu org), perfil y licencia.</p>
+                <p style="margin-top:8px;">El <strong>username</strong> debe tener formato de email pero no tiene que
+                    ser el email real.</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>❄️ Freeze (Congelar)</h3>
+                    <ul>
+                        <li>Bloquea el acceso del usuario inmediatamente.</li>
+                        <li><strong>No libera la licencia.</strong></li>
+                        <li>Útil cuando no puedes desactivar (ej: el usuario es dueño de un proceso activo o un campo
+                            jerárquico).</li>
+                        <li>Es temporal, se puede descongelar.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🚫 Deactivate (Desactivar)</h3>
+                    <ul>
+                        <li>Bloquea el acceso y <strong>libera la licencia</strong>.</li>
+                        <li>Es la acción correcta cuando alguien deja la empresa.</li>
+                        <li><strong>No se pueden borrar usuarios</strong> en Salesforce (integridad de datos
+                            históricos).</li>
+                        <li>Sus registros y actividad histórica se conservan.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Si preguntan qué pasa si alguien abandona la empresa, la respuesta es
+                <em>Deactivate</em>. Si preguntan cómo bloquear el acceso sin perder la licencia, la respuesta es
+                <em>Freeze</em>.
+            </div>
+        </section>
+
+        <!-- 3. LICENCIAS -->
+        <section class="content-section">
+            <h2 class="section-header">3. Tipos de Licencias</h2>
+
+            <div class="topic-box">
+                <h3>📋 Licencias de Usuario más comunes</h3>
+                <table class="compare-table" style="margin-top:10px;">
+                    <thead>
+                        <tr>
+                            <th>Licencia</th>
+                            <th>¿Para qué?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Salesforce</td>
+                            <td>Acceso completo a CRM (Ventas, Servicio, etc.). La más habitual.</td>
+                        </tr>
+                        <tr>
+                            <td>Salesforce Platform</td>
+                            <td>Solo objetos personalizados y ciertas apps. No accede a oportunidades/leads nativos.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Chatter Free</td>
+                            <td>Solo acceso a Chatter (colaboración), sin CRM.</td>
+                        </tr>
+                        <tr>
+                            <td>Communities/Experience</td>
+                            <td>Para portales de clientes o partners externos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. DIVISAS Y HORARIOS -->
+        <section class="content-section">
+            <h2 class="section-header">4. Divisas y Horarios Comerciales</h2>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>💱 Multi-Currency</h3>
+                    <ul>
+                        <li>Se activa en Company Information → Currency Setup.</li>
+                        <li><strong>Corporate Currency:</strong> La divisa base para consolidar reportes.</li>
+                        <li>Puedes activar más divisas y asignarles tasas de cambio.</li>
+                        <li><strong>Advanced Currency Management:</strong> Permite tasas históricas (para no cambiar el
+                            valor de oportunidades antiguas).</li>
+                        <li>⚠️ Una vez activado Multi-Currency, no se puede desactivar.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🕐 Business Hours & Holidays</h3>
+                    <ul>
+                        <li><strong>Dónde:</strong> Setup → Company Settings → Business Hours</li>
+                        <li>Define qué días y en qué horario la empresa opera.</li>
+                        <li>Directamente afecta a las <strong>Escalation Rules</strong> de casos: el "contador" solo
+                            corre en horas laborables.</li>
+                        <li>Los <strong>Holidays</strong> se añaden por separado y pausan el contador de escalación.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Konozca & Joan Mata &copy; 2026 | Salesforce Admin Reference Guide</p>
+        </footer>
+    </div>
+</body>
+
+</html>

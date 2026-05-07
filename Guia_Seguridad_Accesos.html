@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguridad y Accesos — Salesforce Admin Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+
+    <div class="back-bar">
+        <div class="container">
+            <a href="INDEX_START_HERE.html" class="back-link">← Volver al Índice</a>
+            <span class="page-label">Bloque 3 · Seguridad y Accesos</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <span class="brand-tag">Security &amp; Access</span>
+            <h1>Seguridad y Control de Accesos</h1>
+            <p>El sistema de capas que define quién puede ver qué y hacer qué dentro de Salesforce.</p>
+        </div>
+
+        <!-- PIRÁMIDE RESUMEN -->
+        <div class="highlight-box" style="margin-bottom:32px;">
+            <strong>🏛️ La Pirámide de Seguridad (de arriba hacia abajo):</strong><br>
+            <strong>1. Perfil / Permission Sets</strong> → Controlan QUÉ ACCIONES puede hacer el usuario.<br>
+            <strong>2. OWD (Org-Wide Defaults)</strong> → Define la visibilidad mínima por defecto de los registros.<br>
+            <strong>3. Jerarquía de Roles</strong> → Los jefes ven lo de sus subordinados automáticamente.<br>
+            <strong>4. Sharing Rules</strong> → Amplían el acceso a grupos específicos de forma automática.<br>
+            <strong>5. Manual Sharing</strong> → Un usuario comparte un registro concreto con otro usuario.<br>
+            <em>La seguridad siempre es lo más restrictivo que define el Perfil/FLS y lo más abierto que permite la
+                cadena de sharing.</em>
+        </div>
+
+        <!-- 1. PERFILES -->
+        <section class="content-section">
+            <h2 class="section-header">1. Perfiles (Profiles) — ¿Qué puede HACER?</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Setup → Users → Profiles<br>
+                Cada usuario tiene exactamente <strong>UN solo perfil</strong>. El perfil define los permisos base.
+            </p>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🎯 Object Permissions (CRUD)</h3>
+                    <ul>
+                        <li><strong>Create:</strong> Puede crear registros nuevos.</li>
+                        <li><strong>Read:</strong> Puede ver registros.</li>
+                        <li><strong>Edit:</strong> Puede modificar registros existentes.</li>
+                        <li><strong>Delete:</strong> Puede borrar registros.</li>
+                        <li><strong>View All / Modify All:</strong> Ignora las reglas de sharing (solo para admins).
+                        </li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⚙️ Otras Configuraciones del Perfil</h3>
+                    <ul>
+                        <li><strong>App Access:</strong> Qué aplicaciones ve el usuario en el App Launcher.</li>
+                        <li><strong>Tab Settings:</strong> Si una pestaña está visible, oculta o predeterminada.</li>
+                        <li><strong>Field-Level Security (FLS):</strong> Para cada campo, si el usuario puede verlo y/o
+                            editarlo.</li>
+                        <li><strong>Login Hours / IP Ranges:</strong> Restricción de acceso por horario y red.</li>
+                        <li><strong>Password Policies:</strong> Caducidad, complejidad de contraseña.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PERMISSION SETS -->
+        <section class="content-section">
+            <h2 class="section-header">2. Permission Sets y Permission Set Groups</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Setup → Users → Permission Sets
+            </p>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🔑 Permission Sets</h3>
+                    <p>Amplían los permisos de un perfil sin crear un perfil nuevo. Un usuario puede tener
+                        <strong>múltiples Permission Sets</strong>.</p>
+                    <p style="margin-top:10px; font-size:0.9rem;"><strong>Ejemplo:</strong> 50 usuarios tienen el perfil
+                        "Ventas", pero 3 de ellos también gestionan contratos. Les asignas un Permission Set de
+                        "Contratos" solo a esos 3.</p>
+                </div>
+                <div class="topic-box">
+                    <h3>📦 Permission Set Groups</h3>
+                    <p>Agrupan varios Permission Sets en un paquete para asignarlos de una sola vez. Útil cuando los
+                        roles son complejos.</p>
+                    <p style="margin-top:10px; font-size:0.9rem;"><strong>Muting Permission Sets:</strong> Dentro de un
+                        grupo, puedes bloquear ciertos permisos específicos con un "Muting Permission Set".</p>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Los Permission Sets solo pueden <em>ampliar</em> permisos, nunca
+                restringirlos. Para restringir, debes modificar el Perfil o usar FLS.
+            </div>
+        </section>
+
+        <!-- 3. OWD -->
+        <section class="content-section">
+            <h2 class="section-header">3. OWD — Organization-Wide Defaults (¿Qué REGISTROS ve?)</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Setup → Security → Sharing Settings<br>
+                Define el nivel de acceso <strong>mínimo por defecto</strong> a los registros que <em>no</em> son de tu
+                propiedad.
+            </p>
+
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Nivel OWD</th>
+                        <th>¿Qué puede hacer alguien que NO es dueño?</th>
+                        <th>Caso de uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Private</td>
+                        <td>Nada. Solo el dueño y sus superiores en el rol lo ven.</td>
+                        <td>Datos sensibles: expedientes de RRHH, oportunidades confidenciales.</td>
+                    </tr>
+                    <tr>
+                        <td>Public Read Only</td>
+                        <td>Ver el registro pero no editarlo.</td>
+                        <td>Catálogo de productos, base de conocimiento interna.</td>
+                    </tr>
+                    <tr>
+                        <td>Public Read/Write</td>
+                        <td>Ver y editar.</td>
+                        <td>Contactos compartidos entre toda la empresa.</td>
+                    </tr>
+                    <tr>
+                        <td>Public Read/Write/Transfer</td>
+                        <td>Ver, editar y reasignar el dueño.</td>
+                        <td>Leads en una org muy colaborativa.</td>
+                    </tr>
+                    <tr>
+                        <td>Controlled by Parent</td>
+                        <td>El acceso al hijo depende del acceso al padre (para Master-Detail).</td>
+                        <td>Líneas de pedido que siguen la seguridad del pedido.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> OWD solo puede <em>restringir</em>. Para <em>ampliar</em> el acceso a
+                registros específicos se usan los mecanismos siguientes (Roles, Sharing Rules, Manual Sharing).
+            </div>
+        </section>
+
+        <!-- 4. ROLES Y SHARING RULES -->
+        <section class="content-section">
+            <h2 class="section-header">4. Jerarquía de Roles y Sharing Rules</h2>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🌳 Role Hierarchy (Jerarquía de Roles)</h3>
+                    <ul>
+                        <li>Es un árbol organizativo. Los usuarios en roles superiores <strong>ven
+                                automáticamente</strong> los registros de sus subordinados.</li>
+                        <li>No tiene nada que ver con los Perfiles (los perfiles controlan acciones, los roles controlan
+                            visibilidad de registros).</li>
+                        <li>Se puede desactivar por objeto marcando "Grant Access Using Hierarchies" como desactivado.
+                        </li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🔗 Sharing Rules</h3>
+                    <p>Excepciones automáticas al OWD. Amplían el acceso de ciertos registros a ciertos grupos.</p>
+                    <ul style="margin-top:10px;">
+                        <li><strong>Owner-Based:</strong> Comparte registros cuyo dueño pertenece a un grupo/rol.</li>
+                        <li><strong>Criteria-Based:</strong> Comparte registros que cumplen ciertos criterios de campo
+                            (ej: Country = "Spain").</li>
+                    </ul>
+                    <p style="margin-top:8px; font-size:0.9rem;">Solo pueden ampliar el acceso, nunca restringirlo más
+                        allá del OWD.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. FLS -->
+        <section class="content-section">
+            <h2 class="section-header">5. Field-Level Security (FLS) — Seguridad a nivel de campo</h2>
+
+            <div class="topic-box">
+                <h3>🔒 ¿Qué es?</h3>
+                <p>Controla si un usuario puede <strong>ver</strong> y/o <strong>editar</strong> un campo específico,
+                    incluso si tiene acceso al registro.</p>
+                <ul style="margin-top:10px;">
+                    <li>Se configura en el Perfil o Permission Set, campo por campo.</li>
+                    <li>Si FLS dice "oculto", el usuario no verá ese campo <strong>en ningún sitio</strong>: ni en la
+                        pantalla, ni en reportes, ni en búsquedas.</li>
+                    <li>El Page Layout puede añadir campos al diseño, pero si FLS los oculta, el campo sigue sin verse.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <strong>🔑 Regla de oro FLS vs Page Layout:</strong><br>
+                El <strong>Page Layout</strong> controla el diseño visual. El <strong>FLS</strong> controla la seguridad
+                real.<br>
+                Si hay conflicto, <strong>el FLS siempre gana</strong>. Un campo marcado como "Read Only" en FLS será de
+                solo lectura aunque el layout diga que es editable.
+            </div>
+        </section>
+
+        <footer>
+            <p>Konozca & Joan Mata &copy; 2026 | Salesforce Admin Reference Guide</p>
+        </footer>
+    </div>
+</body>
+
+</html>

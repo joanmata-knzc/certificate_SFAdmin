@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Manager & Lightning App Builder — Salesforce Admin Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+
+    <div class="back-bar">
+        <div class="container">
+            <a href="INDEX_START_HERE.html" class="back-link">← Volver al Índice</a>
+            <span class="page-label">Bloque 2 · Object Manager & Lightning App Builder · 15% del examen</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <span class="brand-tag">Object Manager & Lightning App Builder</span>
+            <h1>Modelo de Datos y Personalización de UI</h1>
+            <p>Aquí defines qué información guarda Salesforce y cómo la ve el usuario.</p>
+        </div>
+
+        <!-- 1. OBJETOS -->
+        <section class="content-section">
+            <h2 class="section-header">1. Objetos: Las Tablas de la Base de Datos</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Setup → Object Manager (o la barra de búsqueda de Setup)
+            </p>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📋 Standard Objects (Objetos Estándar)</h3>
+                    <ul>
+                        <li>Vienen incluidos con Salesforce. No se pueden borrar.</li>
+                        <li>Ejemplos clave: <strong>Account</strong> (empresa), <strong>Contact</strong> (persona),
+                            <strong>Lead</strong> (candidato), <strong>Opportunity</strong> (venta),
+                            <strong>Case</strong> (soporte).</li>
+                        <li>Se pueden personalizar añadiendo campos o layouts.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🛠️ Custom Objects (Objetos Personalizados)</h3>
+                    <ul>
+                        <li>Los creas tú para necesidades específicas del negocio.</li>
+                        <li>Su API name siempre termina en <code>__c</code> (ej: <code>Proyecto__c</code>).</li>
+                        <li>Pueden tener sus propias relaciones, layouts y automatizaciones.</li>
+                        <li>Al crearlos, Salesforce genera automáticamente campos de sistema (Created By, Modified
+                            By...).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Los campos y objetos personalizados llevan el sufijo
+                <code>__c</code>. Los campos de relación llevan <code>__r</code> (para referencias). Esto suele aparecer
+                en preguntas de fórmulas.
+            </div>
+        </section>
+
+        <!-- 2. FIELDS & RELATIONSHIPS -->
+        <section class="content-section">
+            <h2 class="section-header">2. Fields & Relationships (Campos y Relaciones)</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Object Manager → [Selecciona un objeto] → Fields & Relationships
+            </p>
+
+            <h3 style="margin-bottom:14px; color:var(--sf-dark);">Tipos de Relaciones</h3>
+            <table class="compare-table" style="margin-bottom:24px;">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>¿Qué pasa si se borra el padre?</th>
+                        <th>¿Roll-up?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lookup</td>
+                        <td>Enlace "suave". El campo es opcional. No hereda seguridad.</td>
+                        <td>El hijo sobrevive (el campo queda vacío).</td>
+                        <td>❌ No</td>
+                    </tr>
+                    <tr>
+                        <td>Master-Detail</td>
+                        <td>Enlace "fuerte". El hijo depende del padre. Hereda su seguridad.</td>
+                        <td>Los hijos se borran también (cascada).</td>
+                        <td>✅ Sí</td>
+                    </tr>
+                    <tr>
+                        <td>Many-to-Many</td>
+                        <td>Se implementa con un objeto intermedio (Junction Object) con dos Master-Detail.</td>
+                        <td>Depende de cuál padre se borra.</td>
+                        <td>✅ En el padre</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-bottom:14px; color:var(--sf-dark);">Tipos de Campos más Importantes</h3>
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📝 Campos de Entrada de Datos</h3>
+                    <ul>
+                        <li><strong>Text:</strong> Texto libre (max 255 chars).</li>
+                        <li><strong>Text Area (Long/Rich):</strong> Texto largo, incluso con HTML.</li>
+                        <li><strong>Number / Currency / Percent:</strong> Valores numéricos con formato.</li>
+                        <li><strong>Date / Date-Time:</strong> Fechas y timestamps.</li>
+                        <li><strong>Checkbox:</strong> Verdadero/Falso.</li>
+                        <li><strong>Picklist:</strong> Menú desplegable con opciones predefinidas. Garantiza calidad del
+                            dato.</li>
+                        <li><strong>Multi-Select Picklist:</strong> Permite seleccionar varias opciones a la vez.</li>
+                        <li><strong>Lookup / Master-Detail:</strong> Campos de relación entre objetos.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⚙️ Campos Calculados / Especiales</h3>
+                    <ul>
+                        <li><strong>Formula:</strong> Solo lectura. Calcula su valor automáticamente. Puede usar campos
+                            de otros objetos relacionados.</li>
+                        <li><strong>Roll-up Summary:</strong> Solo en Master-Detail. Calcula COUNT, SUM, MIN o MAX de
+                            los registros hijos en el padre.</li>
+                        <li><strong>Auto-Number:</strong> Genera un identificador automático incremental (ej:
+                            CASO-0001).</li>
+                        <li><strong>External ID:</strong> Campo único que sirve de "puente" con sistemas externos (ej:
+                            ID del ERP). Útil en cargas de datos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Roll-up Summary <strong>solo funciona en relaciones
+                    Master-Detail</strong>, nunca en Lookup. Si preguntan cómo calcular la suma de los hijos en el padre
+                en una relación Lookup, la respuesta es usar un Flow.
+            </div>
+        </section>
+
+        <!-- 3. RECORD TYPES -->
+        <section class="content-section">
+            <h2 class="section-header">3. Record Types (Tipos de Registro)</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Object Manager → [Objeto] → Record Types
+            </p>
+
+            <div class="topic-box">
+                <h3>🗂️ ¿Para qué sirven?</h3>
+                <p>Permiten que un mismo objeto tenga diferentes <strong>procesos de venta</strong>, <strong>opciones de
+                        picklist</strong> y <strong>page layouts</strong> según el perfil del usuario o el tipo de
+                    negocio.</p>
+                <p style="margin-top:10px;"><strong>Ejemplo práctico:</strong> En el objeto Account, puedes tener:</p>
+                <ul>
+                    <li><strong>Record Type "Cliente":</strong> Muestra campos de facturación, con un layout específico
+                        para el equipo de ventas.</li>
+                    <li><strong>Record Type "Partner":</strong> Muestra campos de contrato, con un layout para el equipo
+                        de alianzas.</li>
+                </ul>
+                <p style="margin-top:10px;">Los Record Types se asignan a los <strong>Perfiles</strong>. Un perfil puede
+                    tener acceso a uno o varios Record Types.</p>
+            </div>
+        </section>
+
+        <!-- 4. PAGE LAYOUTS -->
+        <section class="content-section">
+            <h2 class="section-header">4. Page Layouts y Lightning App Builder</h2>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📄 Page Layouts</h3>
+                    <p>Controlan la <strong>organización</strong> de los campos, secciones, listas relacionadas y
+                        botones en la vista de un registro.</p>
+                    <ul style="margin-top:10px;">
+                        <li>Se asignan a combinaciones de <strong>Perfil + Record Type</strong>.</li>
+                        <li>Puedes hacer un campo obligatorio en el layout (aunque no lo sea en el objeto).</li>
+                        <li>Puedes marcar un campo como solo lectura en el layout.</li>
+                        <li><strong>Ojo:</strong> Si el FLS del perfil dice que un campo es de solo lectura, gana el FLS
+                            sobre el layout.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⚡ Lightning App Builder</h3>
+                    <p>Editor drag-and-drop para construir páginas modernas con componentes.</p>
+                    <ul style="margin-top:10px;">
+                        <li><strong>App Pages:</strong> Páginas de inicio de una aplicación.</li>
+                        <li><strong>Home Pages:</strong> La pantalla de inicio de los usuarios.</li>
+                        <li><strong>Record Pages:</strong> Vista de un registro. Reemplaza al Page Layout clásico en
+                            Lightning.</li>
+                    </ul>
+                    <p style="margin-top:10px;"><strong>Dónde:</strong> Setup → User Interface → Lightning App Builder
+                    </p>
+                    <p style="margin-top:5px;">Las páginas se <strong>activan</strong> como predeterminadas para toda la
+                        org, para una app, o para perfiles específicos.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>🔑 Relación clave Page Layout vs Lightning Record Page:</strong><br>
+                El <strong>Page Layout</strong> define <em>qué campos</em> están disponibles en la página del
+                registro.<br>
+                La <strong>Lightning Record Page</strong> define <em>cómo están organizados</em> los componentes (dónde
+                va el panel de actividad, dónde van los campos, etc.).<br>
+                Ambos trabajan juntos: el Record Page usa el Page Layout para el componente de detalle del registro.
+            </div>
+        </section>
+
+        <footer>
+            <p>Konozca & Joan Mata &copy; 2026 | Salesforce Admin Reference Guide</p>
+        </footer>
+    </div>
+</body>
+
+</html>

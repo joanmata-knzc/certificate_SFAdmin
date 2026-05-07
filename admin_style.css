@@ -1,0 +1,218 @@
+/* ============================================================
+   SALESFORCE ADMIN ENCYCLOPEDIA - admin_style.css
+   Por Joan Mata & Konozca
+   ============================================================ */
+
+:root {
+    --sf-blue: #0176d3;
+    --sf-dark: #032d60;
+    --sf-green: #2e844a;
+    --sf-purple: #6a1b9a;
+    --sf-orange: #fe9339;
+    --sf-teal: #0d9488;
+    --sf-ai: #7c3aed;
+    --bg-light: #f4f6f9;
+    --text-main: #16325c;
+    --text-muted: #5c636a;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --card-shadow-hover: 0 12px 40px rgba(0,0,0,0.15);
+    --radius: 16px;
+    --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Outfit', 'Segoe UI', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 16px;
+}
+
+.container { max-width: 1140px; margin: 0 auto; padding: 40px 24px; }
+
+/* ---- HEADER ---- */
+header { text-align: center; padding-bottom: 48px; border-bottom: 2px solid #dde3ee; margin-bottom: 48px; }
+.brand-tag {
+    display: inline-block;
+    font-weight: 700;
+    color: var(--sf-blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+    background: #e8f2ff;
+    padding: 4px 14px;
+    border-radius: 20px;
+}
+h1 { font-size: 2.8rem; color: var(--sf-dark); margin: 10px 0 8px; line-height: 1.2; }
+.authors { font-size: 1rem; color: var(--text-muted); }
+
+/* ---- DASHBOARD (INDEX) GRID ---- */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+}
+
+.nav-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+    box-shadow: var(--card-shadow);
+    border-left: 6px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+}
+.nav-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--card-shadow-hover);
+    background: #fafcff;
+}
+.nav-card i { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+.nav-card h2 { font-size: 1.35rem; margin-bottom: 8px; color: var(--sf-dark); }
+.nav-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+.nav-card .card-link { font-weight: 700; font-size: 0.85rem; margin-top: 18px; display: inline-block; }
+
+.card-setup    { border-left-color: #21a1f1; }
+.card-model    { border-left-color: var(--sf-blue); }
+.card-security { border-left-color: var(--sf-orange); }
+.card-logic    { border-left-color: var(--sf-purple); }
+.card-sales    { border-left-color: var(--sf-green); }
+.card-data     { border-left-color: var(--sf-teal); }
+.card-ai       { border-left-color: var(--sf-ai); }
+
+/* ---- BACK BAR (DETAIL PAGES) ---- */
+.back-bar {
+    background: white;
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #dde3ee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.back-bar .container { padding-top: 0; padding-bottom: 0; display: flex; align-items: center; justify-content: space-between; }
+.back-link { text-decoration: none; color: var(--sf-blue); font-weight: 600; font-size: 0.95rem; }
+.back-link:hover { text-decoration: underline; }
+.page-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ---- CONTENT SECTIONS ---- */
+.content-section {
+    background: white;
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 32px;
+}
+.section-header {
+    font-size: 1.5rem;
+    color: var(--sf-dark);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--bg-light);
+}
+
+/* ---- TOPIC BOXES ---- */
+.topic-box {
+    background: #f8faff;
+    border-radius: var(--radius-sm);
+    padding: 22px;
+    margin-bottom: 18px;
+    border: 1px solid #e5ecf8;
+}
+.topic-box h3 {
+    color: var(--sf-dark);
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.topic-box p { color: var(--text-muted); font-size: 0.93rem; margin-bottom: 8px; }
+.topic-box ul { margin-left: 18px; }
+.topic-box ul li { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 6px; }
+.topic-box ul li strong { color: var(--text-main); }
+.topic-box code {
+    background: #e8f0fe;
+    color: var(--sf-dark);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-family: 'Courier New', monospace;
+}
+
+/* ---- 2-COLUMN GRID ---- */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+/* ---- COMPARISON TABLE ---- */
+.compare-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.compare-table th { background: var(--sf-dark); color: white; padding: 10px 14px; text-align: left; }
+.compare-table td { padding: 10px 14px; border-bottom: 1px solid #eee; color: var(--text-muted); }
+.compare-table tr:nth-child(even) td { background: #f8faff; }
+.compare-table td:first-child { font-weight: 600; color: var(--text-main); }
+
+/* ---- EXAM TIP ---- */
+.exam-tip {
+    background: #fff8ed;
+    border-left: 5px solid var(--sf-orange);
+    padding: 18px 22px;
+    border-radius: var(--radius-sm);
+    margin: 20px 0;
+    font-size: 0.92rem;
+}
+.exam-tip strong { color: #92400e; display: block; margin-bottom: 4px; font-size: 0.95rem; }
+
+/* ---- HIGHLIGHT BOX ---- */
+.highlight-box {
+    background: linear-gradient(135deg, #e8f2ff, #f0eaff);
+    border: 1px solid #c7d9f8;
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    margin: 18px 0;
+    font-size: 0.92rem;
+    color: var(--text-main);
+}
+.highlight-box strong { color: var(--sf-dark); }
+
+/* ---- WEIGHT BADGE ---- */
+.weight-badge {
+    display: inline-block;
+    background: var(--sf-blue);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* ---- PAGE HEADER (DETAIL) ---- */
+.page-header { margin-bottom: 36px; }
+.page-header h1 { font-size: 2.2rem; color: var(--sf-dark); margin: 8px 0 6px; }
+.page-header p { color: var(--text-muted); font-size: 1rem; }
+
+/* ---- FOOTER ---- */
+footer {
+    text-align: center;
+    padding: 48px 0 24px;
+    border-top: 1px solid #dde3ee;
+    margin-top: 48px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+    h1 { font-size: 1.9rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .nav-grid { grid-template-columns: 1fr; }
+    .content-section { padding: 24px 18px; }
+}

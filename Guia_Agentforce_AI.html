@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentforce & AI — Salesforce Admin Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+
+    <div class="back-bar">
+        <div class="container">
+            <a href="INDEX_START_HERE.html" class="back-link">← Volver al Índice</a>
+            <span class="page-label">Bloque 7 · Agentforce &amp; AI · 8% del examen</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <span class="brand-tag" style="background:#ede9fe; color:var(--sf-ai);">Agentforce &amp; Einstein AI</span>
+            <h1>Agentforce e Inteligencia Artificial</h1>
+            <p>El bloque más nuevo y en rápida evolución. Cómo Salesforce integra la IA generativa en el trabajo diario.
+            </p>
+        </div>
+
+        <!-- CONTEXTO -->
+        <div class="highlight-box" style="margin-bottom:32px; border-left: 5px solid var(--sf-ai);">
+            <strong>🤖 ¿Por qué es importante?</strong><br>
+            Salesforce ha integrado IA en toda la plataforma. El examen ya incluye un 8% de preguntas sobre estos temas.
+            Como Administrador, debes saber qué herramientas de IA existen, para qué sirven y cómo gestionarlas de forma
+            segura.<br><br>
+            <strong>Ecosistema:</strong> <em>Einstein AI</em> (IA predictiva clásica) + <em>Agentforce</em> (IA
+            generativa y agentes autónomos).
+        </div>
+
+        <!-- 1. EINSTEIN AI -->
+        <section class="content-section">
+            <h2 class="section-header">1. Einstein AI — Inteligencia Predictiva</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                Einstein es la capa de IA de Salesforce que analiza datos históricos para predecir resultados futuros.
+            </p>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🎯 Einstein para Ventas</h3>
+                    <ul>
+                        <li><strong>Einstein Lead Scoring:</strong> Puntúa los leads del 1-100 según su probabilidad de
+                            conversión, basándose en datos históricos de tu org.</li>
+                        <li><strong>Einstein Opportunity Scoring:</strong> Predice la probabilidad de ganar cada
+                            oportunidad.</li>
+                        <li><strong>Einstein Activity Capture:</strong> Sincroniza automáticamente emails y eventos de
+                            Google/Outlook con Salesforce.</li>
+                        <li><strong>Einstein Forecasting:</strong> Mejora las previsiones de ventas con IA.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🎧 Einstein para Servicio</h3>
+                    <ul>
+                        <li><strong>Einstein Case Classification:</strong> Clasifica y enruta casos automáticamente
+                            según el contenido del email del cliente.</li>
+                        <li><strong>Einstein Article Recommendations:</strong> Sugiere artículos de Knowledge relevantes
+                            a los agentes mientras atienden un caso.</li>
+                        <li><strong>Einstein Reply Recommendations:</strong> Propone respuestas predefinidas para el
+                            agente en chat.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. AGENTFORCE -->
+        <section class="content-section">
+            <h2 class="section-header">2. Agentforce — Agentes de IA Autónomos</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                Agentforce es la plataforma de Salesforce para crear <strong>agentes de IA autónomos</strong> que pueden
+                ejecutar tareas complejas sin intervención humana constante.
+            </p>
+
+            <div class="topic-box" style="border-top: 4px solid var(--sf-ai);">
+                <h3>🧠 ¿Qué es un Agente de IA?</h3>
+                <p>Un agente puede entender lenguaje natural, tomar decisiones y ejecutar acciones dentro de Salesforce
+                    (y fuera) de forma autónoma. Va más allá de los chatbots simples.</p>
+                <ul style="margin-top:10px;">
+                    <li><strong>Puede:</strong> Consultar datos, crear registros, enviar emails, llamar a APIs externas,
+                        escalar a un humano cuando es necesario.</li>
+                    <li><strong>Dónde se despliega:</strong> Chat de atención al cliente, portal de autoservicio, dentro
+                        de Salesforce para agentes internos (Copilot), mobile...</li>
+                </ul>
+            </div>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📋 Componentes Clave de un Agente</h3>
+                    <ul>
+                        <li><strong>Topic (Tema):</strong> El área de conocimiento del agente (ej: "Gestión de
+                            Devoluciones"). Define cuándo el agente puede actuar.</li>
+                        <li><strong>Instructions:</strong> Instrucciones en lenguaje natural que guían el comportamiento
+                            del agente.</li>
+                        <li><strong>Actions:</strong> Las cosas que el agente puede hacer (invocar un Flow, consultar
+                            datos, llamar a una API...).</li>
+                        <li><strong>Guardrails:</strong> Reglas de lo que el agente <em>no</em> debe hacer o decir.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⚙️ Cómo se Configura</h3>
+                    <ul>
+                        <li><strong>Dónde:</strong> Setup → Agentforce → Agents</li>
+                        <li>Se usa el <strong>Agent Builder</strong> para diseñar el agente visualmente.</li>
+                        <li>Los agentes se prueban con el <strong>Preview</strong> antes de activarlos.</li>
+                        <li>Se despliegan en canales (Embedded Chat, Experience Cloud, etc.).</li>
+                        <li>Requieren licencias de <strong>Agentforce</strong> (diferentes a las de Salesforce
+                            estándar).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. EINSTEIN COPILOT / SALESFORCE COPILOT -->
+        <section class="content-section">
+            <h2 class="section-header">3. Einstein Copilot — IA para el Usuario Interno</h2>
+
+            <div class="topic-box">
+                <h3>💡 ¿Qué es Copilot?</h3>
+                <p>Es el asistente de IA conversacional que aparece <strong>dentro de Salesforce</strong> para ayudar a
+                    los usuarios internos (comerciales, agentes de soporte...).</p>
+                <ul style="margin-top:10px;">
+                    <li>Aparece como un panel lateral en la interfaz de Lightning.</li>
+                    <li>Los usuarios pueden hacerle preguntas en lenguaje natural: "Resume este caso", "Redacta un email
+                        de seguimiento para esta oportunidad".</li>
+                    <li>Puede ejecutar acciones: crear tareas, actualizar campos, buscar información.</li>
+                    <li>El Administrador configura qué <strong>Copilot Actions</strong> están disponibles para cada
+                        perfil.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 4. SEGURIDAD Y GOBERNANZA IA -->
+        <section class="content-section">
+            <h2 class="section-header">4. Seguridad y Gobernanza de la IA</h2>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>🛡️ Einstein Trust Layer</h3>
+                    <p>La capa de seguridad de Salesforce para la IA generativa. Garantiza que:</p>
+                    <ul style="margin-top:10px;">
+                        <li>Los datos de los clientes <strong>no se usan para entrenar modelos</strong> de terceros (ej:
+                            el LLM de OpenAI).</li>
+                        <li>Hay <strong>Data Masking</strong> (enmascaramiento de datos sensibles) antes de enviar
+                            prompts al LLM.</li>
+                        <li>Las respuestas pasan por filtros de <strong>toxicidad y seguridad</strong>.</li>
+                        <li>Todo queda en un <strong>Audit Trail</strong> para revisión.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⚙️ Controles del Administrador</h3>
+                    <ul>
+                        <li>Activar o desactivar funcionalidades de IA por objeto o perfil.</li>
+                        <li>Configurar qué datos pueden ser usados por la IA (Data Grounding).</li>
+                        <li>Revisar los logs de uso del Copilot y los Agentes.</li>
+                        <li>Definir los <strong>Guardrails</strong> y temas permitidos para cada agente.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> Las preguntas de IA suelen centrarse en <strong>Einstein Trust
+                    Layer</strong> (privacidad de datos), la diferencia entre un <strong>chatbot</strong> (flujo
+                pregunta-respuesta fijo) y un <strong>Agente</strong> (autónomo, toma decisiones), y las
+                responsabilidades del Admin en la gobernanza de IA.
+            </div>
+        </section>
+
+        <footer>
+            <p>Konozca & Joan Mata &copy; 2026 | Salesforce Admin Reference Guide</p>
+        </footer>
+    </div>
+</body>
+
+</html>

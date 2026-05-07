@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatización — Salesforce Admin Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+
+<body>
+
+    <div class="back-bar">
+        <div class="container">
+            <a href="INDEX_START_HERE.html" class="back-link">← Volver al Índice</a>
+            <span class="page-label">Bloque 4 · Automatización · 15% del examen</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <span class="brand-tag">Automation</span>
+            <h1>Automatización y Lógica de Negocio</h1>
+            <p>Hacer que Salesforce trabaje solo: validar datos, enviar emails, actualizar registros y guiar usuarios.
+            </p>
+        </div>
+
+        <!-- ORIENTACIÓN GENERAL -->
+        <div class="highlight-box" style="margin-bottom:32px;">
+            <strong>📌 Herramientas por orden de preferencia en el examen:</strong><br>
+            <strong>1. Flow Builder</strong> → La herramienta estándar para todo. Es la respuesta preferida.<br>
+            <strong>2. Validation Rules</strong> → Para calidad del dato (errores al guardar).<br>
+            <strong>3. Approval Processes</strong> → Para flujos de aprobación humana.<br>
+            <strong>⚠️ Workflow Rules y Process Builder están obsoletos (Legacy).</strong> No los recomendará el examen
+            para escenarios nuevos.
+        </div>
+
+        <!-- 1. FLOW BUILDER -->
+        <section class="content-section">
+            <h2 class="section-header">1. Flow Builder — El Motor de Automatización</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Setup → Process Automation → Flows<br>
+                Herramienta visual (sin código) para construir lógica de negocio compleja.
+            </p>
+
+            <h3 style="margin-bottom:14px; color:var(--sf-dark);">Tipos de Flujos</h3>
+            <table class="compare-table" style="margin-bottom:24px;">
+                <thead>
+                    <tr>
+                        <th>Tipo de Flow</th>
+                        <th>¿Cuándo se ejecuta?</th>
+                        <th>¿Tiene interfaz de usuario?</th>
+                        <th>Caso de uso típico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Record-Triggered</td>
+                        <td>Cuando un registro se crea, edita o borra.</td>
+                        <td>No</td>
+                        <td>Enviar email al crear una Oportunidad. Actualizar un campo automáticamente.</td>
+                    </tr>
+                    <tr>
+                        <td>Screen Flow</td>
+                        <td>Un usuario lo lanza manualmente (botón, link, etc.).</td>
+                        <td>Sí (pantallas con preguntas)</td>
+                        <td>Asistente para crear un pedido paso a paso. Formularios guiados.</td>
+                    </tr>
+                    <tr>
+                        <td>Scheduled-Triggered</td>
+                        <td>A una hora/frecuencia programada.</td>
+                        <td>No</td>
+                        <td>Enviar recordatorio diario de tareas pendientes. Cierre automático de casos viejos.</td>
+                    </tr>
+                    <tr>
+                        <td>Autolaunched (No Trigger)</td>
+                        <td>Llamado desde otro proceso (otro flow, Apex, etc.).</td>
+                        <td>No</td>
+                        <td>Lógica reutilizable que se invoca desde otros flujos.</td>
+                    </tr>
+                    <tr>
+                        <td>Platform Event-Triggered</td>
+                        <td>Cuando se publica un Platform Event.</td>
+                        <td>No</td>
+                        <td>Integraciones en tiempo real con sistemas externos.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-bottom:14px; color:var(--sf-dark);">Elementos Clave dentro de un Flow</h3>
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📋 Elementos de Datos</h3>
+                    <ul>
+                        <li><strong>Get Records:</strong> Consulta registros de Salesforce.</li>
+                        <li><strong>Create Records:</strong> Crea uno o varios registros.</li>
+                        <li><strong>Update Records:</strong> Actualiza campos de registros existentes.</li>
+                        <li><strong>Delete Records:</strong> Elimina registros.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>🧠 Elementos de Lógica</h3>
+                    <ul>
+                        <li><strong>Decision:</strong> Un "if/else". Según una condición, toma un camino u otro.</li>
+                        <li><strong>Loop:</strong> Repite una acción para cada elemento de una colección.</li>
+                        <li><strong>Assignment:</strong> Asigna un valor a una variable.</li>
+                        <li><strong>Subflow:</strong> Llama a otro flow (reutilización de lógica).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exam-tip">
+                <strong>💡 Tip de Examen:</strong> En Record-Triggered Flows, las acciones pueden ejecutarse
+                <strong>Before Save</strong> (antes de guardar, más rápido, sin DML adicional) o <strong>After
+                    Save</strong> (después de guardar, permite crear/actualizar otros registros). Siempre que puedas,
+                usa "Before Save" para actualizar el propio registro.
+            </div>
+        </section>
+
+        <!-- 2. VALIDATION RULES -->
+        <section class="content-section">
+            <h2 class="section-header">2. Validation Rules — Calidad del Dato</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Object Manager → [Objeto] → Validation Rules
+            </p>
+
+            <div class="topic-box">
+                <h3>🚦 ¿Cómo funcionan?</h3>
+                <p>Son fórmulas booleanas (verdadero/falso). <strong>Si la fórmula devuelve VERDADERO, bloquea el
+                        guardado</strong> y muestra el mensaje de error definido.</p>
+                <ul style="margin-top:10px;">
+                    <li><code>ISBLANK(Phone)</code> → Error si el teléfono está vacío.</li>
+                    <li><code>CloseDate &lt; TODAY()</code> → Error si la fecha de cierre es en el pasado.</li>
+                    <li><code>NOT(ISPICKVAL(Stage, "Closed Won")) &amp;&amp; Amount &gt; 100000</code> → Lógica
+                        combinada.</li>
+                </ul>
+                <p style="margin-top:10px; font-size:0.9rem; color:var(--text-muted);">Funciones comunes:
+                    <code>ISBLANK()</code>, <code>ISNULL()</code>, <code>ISPICKVAL()</code>, <code>AND()</code>,
+                    <code>OR()</code>, <code>NOT()</code>, <code>LEN()</code>, <code>TODAY()</code>, <code>NOW()</code>.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. APPROVAL PROCESSES -->
+        <section class="content-section">
+            <h2 class="section-header">3. Approval Processes — Aprobaciones Humanas</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">
+                <strong>Dónde:</strong> Setup → Process Automation → Approval Processes
+            </p>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>✅ ¿Para qué?</h3>
+                    <p>Cuando una acción necesita la aprobación de otra persona antes de ejecutarse.</p>
+                    <ul style="margin-top:10px;">
+                        <li><strong>Ejemplo clásico:</strong> Un descuento mayor al 20% debe ser aprobado por el
+                            Director de Ventas.</li>
+                        <li>Pueden ser de uno o varios pasos (ej: primero aprueba el manager, luego el director).</li>
+                        <li>Se puede configurar quién aprueba: el manager del propietario, un usuario específico, o la
+                            cola.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⚙️ Acciones Disponibles</h3>
+                    <ul>
+                        <li><strong>Al enviar a aprobación:</strong> Ej: bloquear edición del registro.</li>
+                        <li><strong>Al aprobar:</strong> Ej: cambiar campo Stage a "Aprobado", enviar email.</li>
+                        <li><strong>Al rechazar:</strong> Ej: revertir cambios, notificar al solicitante.</li>
+                        <li><strong>Al retirar:</strong> Ej: desbloquear el registro.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. OTRAS HERRAMIENTAS -->
+        <section class="content-section">
+            <h2 class="section-header">4. Otras Herramientas de Automatización</h2>
+
+            <div class="info-grid">
+                <div class="topic-box">
+                    <h3>📋 Assignment Rules</h3>
+                    <p>Asignan automáticamente <strong>Leads o Cases</strong> al usuario o cola correcta según
+                        criterios.</p>
+                    <ul style="margin-top:10px;">
+                        <li>Solo puede estar activa <strong>una regla a la vez</strong> por objeto.</li>
+                        <li>Dentro de esa regla, puedes tener múltiples "Rule Entries" que se evalúan en orden.</li>
+                        <li><strong>Dónde:</strong> Setup → Lead Assignment Rules / Case Assignment Rules.</li>
+                    </ul>
+                </div>
+                <div class="topic-box">
+                    <h3>⏰ Escalation Rules</h3>
+                    <p>Reasignan o notifican sobre <strong>casos</strong> que no han sido atendidos en un tiempo
+                        determinado.</p>
+                    <ul style="margin-top:10px;">
+                        <li>El tiempo cuenta según las <strong>Business Hours</strong> configuradas.</li>
+                        <li>Se puede escalar a un usuario, cola, o enviar un email de alerta.</li>
+                        <li><strong>Dónde:</strong> Setup → Case Escalation Rules.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Konozca & Joan Mata &copy; 2026 | Salesforce Admin Reference Guide</p>
+        </footer>
+    </div>
+</body>
+
+</html>
